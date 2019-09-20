@@ -1,7 +1,11 @@
 import React from 'react';
-// import CounterContainer from '../containers/Counter/Counter';
+import CounterContainer from '../containers/Counter/Counter';
 const App = () => {
-    return <div>{/* <CounterContainer></CounterContainer> */}</div>;
+    return (
+        <div>
+            <CounterContainer></CounterContainer>
+        </div>
+    );
 };
 
 export default App;
