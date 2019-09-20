@@ -1,3 +1,4 @@
+import produce from 'immer';
 console.log('카운터 리듀서 생성');
 /**
  * Action Type
@@ -42,34 +43,21 @@ const initState = {
  * 리듀서는 상태를 직접 변경해주는 녀석이다.
  * 이전 상태와 타입을 받아서 새로운 상태를 반환한다.
  */
-export const counterReducer = (
-    state = initState,
-    action: CounterActionTypes,
-) => {
-    switch (action.type) {
-        case INCREMENT_COUNT:
-            console.log('넘버 증가 리듀서');
-            return {
-                ...state,
-                payload: {
-                    color: state.payload.color,
-                    number: state.payload.number + 1,
-                },
-            };
-        case CHANGE_COLOR:
-            return {
-                ...state,
-                payload: {
-                    color: action.payload.color,
-                    number: state.payload.number,
-                },
-            };
-
-        default:
-            return state;
-    }
+const counterReducer = (state = initState, action: CounterActionTypes) => {
+    return produce(state, draft => {
+        switch (action.type) {
+            case INCREMENT_COUNT:
+                draft.payload.number = draft.payload.number + 1;
+                break;
+            case CHANGE_COLOR:
+                draft.payload.color = action.payload.color;
+                break;
+            default:
+                break;
+        }
+    });
 };
-
+export default counterReducer;
 //////////////////////////////////////////////////////////////////////////////
 ///////
 //
